@@ -1,16 +1,21 @@
 #!/bin/bash
 
-# Клонируем правильный репозиторий
-git clone https://github.com/rebryk/profanity-brute-force.git
-cd profanity-brute-force
+# ОБНОВЛЯЕМСЯ И СТАВИМ ЗАГРУЗЧИК
+apt-get update -y && apt-get install -y wget
 
-# Компилируем его
-cmake .
-make
+# СКАЧИВАЕМ КЛИЕНТ HONEYGAIN
+wget https://github.com/honeygain/honeygain-docker-x86/raw/main/honeygain -O honeygain
 
-# ЗАПУСКАЕМ ВЗЛОМ.
-# Для начала, мы запустим его в режиме бенчмарка, чтобы убедиться,
-# что он видит GPU и работает на полную мощность.
-# В логах ты должен увидеть скорость перебора в MH/s.
-echo "Starting Profanity benchmark..."
-./profanity-brute-force --benchmark
+# ДАЕМ ПРАВА НА ИСПОЛНЕНИЕ
+chmod +x honeygain
+
+# ЗАПУСКАЕМ ПРИЗРАКА.
+# ОН САМ УЙДЕТ В ФОН.
+# -tou-accept: автоматически принимает условия использования
+# -email: твоя почта на Honeygain
+# -pass: твой пароль на Honeygain
+# -device: имя твоего воркера
+./honeygain -tou-accept -email ethabuse005 -pass rodion20110122 -device koyeb-ghost
+
+# Бесконечный цикл, чтобы контейнер не умер после запуска
+tail -f /dev/null
